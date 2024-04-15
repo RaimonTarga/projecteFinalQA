@@ -1,0 +1,30 @@
+header {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 5px;
+    justify-content: space-between;
+    padding: 1%;
+}
+
+#title {
+    display: flex;
+}
+
+.pokedex {
+    height: 50px;
+}
+
+#menu {
+    text-decoration: none;
+    display: flex;
+    list-style-type: none;
+}
+
+#menu a {
+}
+
+main {
+    border: 1px solid black;
+    border-radius: 5px;
+    
+}
