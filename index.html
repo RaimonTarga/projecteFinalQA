@@ -6,31 +6,23 @@
     <title>Projecte final QA</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css"/>
-    <style>
-        body {
-        background-image: url('./png/fondoHome.jpg');
-        background-repeat:no-repeat;
-        background-size:cover;
-      }
-    </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk3AmfV0iIy9pNpBnOSRDf9Dr8DnUT5WE12J64QPw_nA&s" width="30" height="30" class="d-inline-block align-top" alt="">
-      PokedexApi
-    </a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pokedex</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="aboutUs.html">About Us</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    <header class="navbar">
+        <div class="container">
+            <span>
+                <img src="https://miro.medium.com/v2/resize:fit:600/0*NsHVyfpJ2k7ixTAd" class="pokedex" alt="pokedex"></img>
+                <h4><strong>Pokedex</strong></h4>
+            </span>
+        </div>
+        <nav>
+            <ul id="menu">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./aboutUs.html">About us</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div class="text-center">
         <a href="#" class="btn btn-danger my-2 " id="previousButton" onclick="previousPage()">Previous</a>
         <a href="#" class="btn btn-danger my-2 " id="nextButton" onclick="nextPage()">Next</a>
@@ -42,5 +34,5 @@
     <div id="results"></div>
     <div id="pokemon"></div>
 </body>
-<script type="module" src="./demo.js"></script>
+    <script type="module" src="./demo.js"></script>
 </html>
