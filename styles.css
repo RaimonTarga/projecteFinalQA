@@ -1017,3 +1017,15 @@ main {
     display: block;
     text-align: center;
     }
+    .jumbotron {
+        background: none;
+        padding-bottom: 0;
+    }
+    #banner{
+        height: 200px;
+        width: 40%;
+        background-image: url(https://i.pinimg.com/originals/2b/1d/fe/2b1dfec19b945a19ac39641278a6a799.jpg) ;
+        background-size:contain;
+        background-repeat: no-repeat ;
+        margin-left: 30%;
+    }
