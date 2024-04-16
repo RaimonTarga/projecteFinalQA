@@ -4,22 +4,49 @@ const nextButton = document.getElementById("nextButton");
 const searchField = document.getElementById('pokemonInput');
 const backButton = document.getElementById("backButton");
 const results = document.getElementById("results");
-let currentPage = 1;
+const PAGE_SIZE = 25
+const MAX_PAGE = 52
+let currentPage = 0
 let queryResults = []
+let filteredResults = []
 
 
-printList(1, undefined)
 
+
+
+
+queryPage(0)
+
+previousButton.style = "display:none"
+/*
+for (let i = 1; i < 52; i++){
+    queryPage(i)
+}
+*/
 
 searchField.addEventListener('input', (evt) => {
     clearPage()
+    currentPage = 0
+    previousButton.style = "display:none"
+    filterElements()
     updateResults()
 });
 
+function filterElements(){
+    filteredResults = []
+    queryResults.forEach(element => {
+        if (element.name.toLowerCase().includes(searchField.value.toLowerCase())){
+            filteredResults.push(element)
+        }
+    });
+    
+}
 
-function printList(pageNumber, filter){
+
+function queryPage(pageNumber){
     try {
-        fetch(API_URL + "/?limit=25&offset=" + pageNumber)
+        const PAGE_OFFSET = pageNumber * PAGE_SIZE
+        fetch(API_URL + "/?limit=" + PAGE_SIZE + "&offset=" + PAGE_OFFSET)
             .then(response => {
                 const responseJson = response.json()
                 return responseJson
@@ -27,17 +54,35 @@ function printList(pageNumber, filter){
             .then(data => {
                 
                 let pokemons = data.results
-                pokemons.forEach(pokemon => {
-                    fetch(pokemon.url)
-                        .then(response => {
-                            const responseJson = response.json()
-                            return responseJson
-                        })
-                        .then(data => {
-                            queryResults.push(data)
-                            displayData(data, filter)
-                        })
-                });
+                let resultPromise = new Promise((resolve, reject) => {
+                    pokemons.forEach(pokemon => {
+                    
+                        fetch(pokemon.url)
+                            .then(response => {
+                                const responseJson = response.json()
+                                return responseJson
+                            })
+                            .then(data => {
+                                console.log(data.id)
+                                queryResults.push(data)
+                                if (queryResults.length == PAGE_OFFSET + PAGE_SIZE) resolve()
+                            })
+                            .catch(error => {
+                                reject()
+                                console.error(error)
+                            })
+                    });
+                    
+                })
+                resultPromise.then(()=>{
+                    queryResults.sort((a, b) => a.id - b.id)
+                    updateResults()
+                    if (pageNumber<MAX_PAGE){
+                        queryPage(pageNumber+1)
+                    }
+                    
+                })
+                
             
             })
             .catch(error => {
@@ -47,8 +92,6 @@ function printList(pageNumber, filter){
             })
     } catch (error) {
         console.error(error)
-    } finally {
-        queryResults.sort((a, b) => a.id - b.id)
     }
 }
 
@@ -56,337 +99,335 @@ function compareID(a, b){
     return (a.id < b.id)
 }
 
-function displayData(element, filter){
-    if (filter === undefined || element.name.toLowerCase().includes(filter.toLowerCase())){
-        const node = document.createElement("div")
-        switch(element.types[0].type.name){
-            case "water":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-water">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-water">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "fire":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-fire">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-fire">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "grass":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-grass">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-grass">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "ice":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-ice">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-ice">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-    
-            case "bug":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-bug">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-bug">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "fighting":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-fighting">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-fighting">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "electric":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-electric">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-electric">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "rock":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-rock">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-rock">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "steel":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-steel">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-steel">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "dark":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-dark">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-dark">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "flying":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-flying">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-flying">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "normal":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-normal">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-normal">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "ghost":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-ghost">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-ghost">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "ground":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-ground">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-ground">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "dragon":
-                node.innerHTML += 
-                `<div class="parent">
-                <div class="card">
-                    <div class="content-box-dragon">
-                        <span class="card-title">${element.name}</span>
-                        <p class="card-content">
-                            Id: ${element.id}
-                        </p>
-                        <p class="card-content">
-                            Types: ${element.types[0].type.name}
-                        </p>
-                    </div>
-                    <div class="date-box-dragon">
-                        <img src="${element.sprites.front_default}" alt="foto">
-                    </div>
-                </div>
-                </div>
-                `
-                break;
-            case "fairy":
+function displayElement(element){
+    const node = document.createElement("div")
+    switch(element.types[0].type.name){
+        case "water":
             node.innerHTML += 
             `<div class="parent">
             <div class="card">
-                <div class="content-box-fairy">
+                <div class="content-box-water">
                     <span class="card-title">${element.name}</span>
                     <p class="card-content">
-                            Id: ${element.id}
-                        </p>
+                        Id: ${element.id}
+                    </p>
                     <p class="card-content">
                         Types: ${element.types[0].type.name}
                     </p>
                 </div>
-                <div class="date-box-fairy">
+                <div class="date-box-water">
                     <img src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
             `
             break;
-        }
-        node.onclick = function(){
-            showElement(element)
-        };
-        results.appendChild(node)
+        case "fire":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-fire">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-fire">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "grass":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-grass">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-grass">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "ice":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-ice">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-ice">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+
+        case "bug":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-bug">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-bug">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "fighting":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-fighting">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-fighting">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "electric":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-electric">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-electric">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "rock":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-rock">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-rock">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "steel":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-steel">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-steel">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "dark":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-dark">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-dark">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "flying":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-flying">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-flying">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "normal":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-normal">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-normal">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "ghost":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-ghost">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-ghost">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "ground":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-ground">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-ground">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "dragon":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-dragon">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-dragon">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
+        case "fairy":
+        node.innerHTML += 
+        `<div class="parent">
+        <div class="card">
+            <div class="content-box-fairy">
+                <span class="card-title">${element.name}</span>
+                <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                <p class="card-content">
+                    Types: ${element.types[0].type.name}
+                </p>
+            </div>
+            <div class="date-box-fairy">
+                <img src="${element.sprites.front_default}" alt="foto">
+            </div>
+        </div>
+        </div>
+        `
+        break;
+    }
+    node.onclick = function(){
+        showElement(element)
     };
+    results.appendChild(node)
 }
 
 function print(){
@@ -406,18 +447,18 @@ function clearPage(){
 
 function nextPage(){
     clearPage()
-    updateResults()
     currentPage++
-    if (currentPage != 1){
+    updateResults()
+    if (currentPage != 0){
         previousButton.style = "display:inline"
     }
 }
 
 function previousPage(){
     clearPage()
-    updateResults()
     currentPage--
-    if (currentPage == 1){
+    updateResults()
+    if (currentPage == 0){
         previousButton.style = "display:none"
     }
     nextButton.style = "display:inline"
@@ -430,7 +471,23 @@ function goBack(){
 }
 
 function updateResults(){
-    queryResults.forEach(element => {
-        displayData(element, searchField.value)
-    });
+    clearPage()
+    if (searchField.value != ""){
+        filteredResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE).forEach(element => {
+            displayElement(element)
+        });
+    }
+    else if (queryResults.length <= currentPage * PAGE_SIZE){
+        
+        queryResults.forEach(element => {
+            displayElement(element)
+        });
+        
+    }
+    else {
+        queryResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE).forEach(element => {
+            displayElement(element)
+        });
+    }
+    
 }
