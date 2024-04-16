@@ -15,29 +15,29 @@
     </style>
 </head>
 <body>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-            <strong>Pokedex</strong>
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="https://miro.medium.com/v2/resize:fit:600/0*NsHVyfpJ2k7ixTAd" class="pokedex" alt="pokedex">
+          <a class="navbar-brand" href="#">PokedexApi</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-        </div>
-      </div>
-    <header>
-        <div id="title">
-            <img src="https://miro.medium.com/v2/resize:fit:600/0*NsHVyfpJ2k7ixTAd" class="pokedex" alt="pokedex">
-            <h1>Pokédex</h1>
-        </div>      
-        <nav>
-            <ul id="menu">
-                <li><a href="">Home</a></li>
-                <li><a href="">About us</a></li>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pokedex</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About Us</a>
+              </li>
             </ul>
-        </nav>
-    </header>
+          </div>
+        </div>
+    </nav>
+    
     <div class="text-center">
         <a href="#" class="btn btn-danger my-2 ">Previous</a>
         <a href="#" class="btn btn-danger my-2 ">Next</a>
