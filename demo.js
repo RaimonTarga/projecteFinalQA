@@ -16,11 +16,6 @@ let filteredResults = []
 queryPage(0)
 
 previousButton.style = "display:none"
-/*
-for (let i = 1; i < 52; i++){
-    queryPage(i)
-}
-*/
 
 searchField.addEventListener('input', (evt) => {
     clearPage()
@@ -61,7 +56,6 @@ function queryPage(pageNumber){
                                 return responseJson
                             })
                             .then(data => {
-                                console.log(data.id)
                                 queryResults.push(data)
                                 if (queryResults.length == PAGE_OFFSET + PAGE_SIZE) resolve()
                             })
@@ -74,7 +68,7 @@ function queryPage(pageNumber){
                 })
                 resultPromise.then(()=>{
                     queryResults.sort((a, b) => a.id - b.id)
-                    updateResults()
+                    if (pageNumber==0) updateResults()
                     if (pageNumber<MAX_PAGE){
                         queryPage(pageNumber+1)
                     }
@@ -180,7 +174,26 @@ function displayElement(element){
             </div>
             `
             break;
-
+        case "psychic":
+            node.innerHTML += 
+            `<div class="parent">
+            <div class="card">
+                <div class="content-box-psychic">
+                    <span class="card-title">${element.name}</span>
+                    <p class="card-content">
+                        Id: ${element.id}
+                    </p>
+                    <p class="card-content">
+                        Types: ${element.types[0].type.name}
+                    </p>
+                </div>
+                <div class="date-box-psychic">
+                    <img src="${element.sprites.front_default}" alt="foto">
+                </div>
+            </div>
+            </div>
+            `
+            break;
         case "bug":
             node.innerHTML += 
             `<div class="parent">
