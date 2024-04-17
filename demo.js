@@ -10,11 +10,6 @@ let currentPage = 0
 let queryResults = []
 let filteredResults = []
 
-
-
-
-
-
 queryPage(0)
 
 previousButton.style = "display:none"
