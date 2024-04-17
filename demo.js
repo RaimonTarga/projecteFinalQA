@@ -26,7 +26,7 @@ searchField.addEventListener('input', (evt) => {
     previousButton.style = "display:none"
     filterElements()
     updateResults()
-});
+})
 
 function filterElements(){
     filteredResults = []
@@ -34,10 +34,8 @@ function filterElements(){
         if (element.name.includes(searchField.value.toLowerCase())){
             filteredResults.push(element)
         }
-    });
-    
+    })
 }
-
 
 function queryPage(pageNumber){
     try {
@@ -48,11 +46,9 @@ function queryPage(pageNumber){
                 return responseJson
             })
             .then(data => {
-                
                 let pokemons = data.results
                 let resultPromise = new Promise((resolve, reject) => {
                     pokemons.forEach(pokemon => {
-                    
                         fetch(pokemon.url)
                             .then(response => {
                                 const responseJson = response.json()
@@ -66,8 +62,7 @@ function queryPage(pageNumber){
                                 reject()
                                 console.error(error)
                             })
-                    });
-                    
+                    })
                 })
                 resultPromise.then(()=>{
                     queryResults.sort((a, b) => a.id - b.id)
@@ -91,348 +86,29 @@ function queryPage(pageNumber){
 
 function displayElement(element){
     const node = document.createElement("div")
-    switch(element.types[0].type.name){
-        case "water":
-            node.innerHTML += 
-            `<div class="parent">
+    let types = element.types[0].type.name
+    if (element.types[1] != undefined){
+         types += ", " + element.types[1].type.name
+    }
+    node.innerHTML += 
+        `
+        <div class="parent">
             <div class="card">
-                <div class="content-box-water">
+                <div class="content-box-${element.types[0].type.name}">
                     <span class="card-title">${element.name}</span>
                     <p class="card-content">
                         Id: ${element.id}
                     </p>
                     <p class="card-content">
-                        Types: ${element.types[0].type.name}
+                        Types: ${types}
                     </p>
                 </div>
-                <div class="date-box-water">
+                <div class="date-box-${element.types[0].type.name}">
                     <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
-            </div>
-            `
-            break;
-        case "fire":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-fire">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-fire">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "grass":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-grass">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-grass">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "ice":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-ice">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-ice">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "psychic":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-psychic">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-psychic">
-                    <img src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "bug":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-bug">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-bug">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "fighting":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-fighting">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-fighting">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "electric":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-electric">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-electric">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "rock":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-rock">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-rock">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "steel":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-steel">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-steel">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "dark":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-dark">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-dark">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "flying":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-flying">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-flying">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "normal":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-normal">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-normal">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "ghost":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-ghost">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-ghost">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "ground":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-ground">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-ground">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "dragon":
-            node.innerHTML += 
-            `<div class="parent">
-            <div class="card">
-                <div class="content-box-dragon">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${element.types[0].type.name}
-                    </p>
-                </div>
-                <div class="date-box-dragon">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
-            </div>
-            </div>
-            `
-            break;
-        case "fairy":
-        node.innerHTML += 
-        `<div class="parent">
-        <div class="card">
-            <div class="content-box-fairy">
-                <span class="card-title">${element.name}</span>
-                <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                <p class="card-content">
-                    Types: ${element.types[0].type.name}
-                </p>
-            </div>
-            <div class="date-box-fairy">
-                <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-            </div>
-        </div>
         </div>
         `
-        break;
-    }
     node.onclick = function(){
         showElement(element)
     };
@@ -443,17 +119,15 @@ function showElement(element){
     results.style = "display:none"
     banner.style = "display:none"
     fichaPokemon.style = "display:inline"
-    nombrePokemon.innerHTML = element.name + '<button type="button" id="btnClose" class="btn-close float-right" aria-label="Close" onclick="closeCard()"></button>'
+    nombrePokemon.innerHTML = element.name + '<button type="button" id="btnClose" class="btn-close float-right" aria-label="Close" onclick="goBack()"></button>'
+    let types = element.types[0].type.name
     if (element.types[1] != undefined){
-        tipoPokemon.innerHTML = "Tipos: " + element.types[0].type.name + " " + element.types[1].type.name
+         types += ", " + element.types[1].type.name
     }
-    else {
-        tipoPokemon.innerHTML = "Tipo: " + element.types[0].type.name
-    }
-    
-    alturaPokemon.innerHTML = "Altura: " + (element.height/10) + " metros" 
-    pesoPokemon.innerHTML = "Peso: " + (element.weight/10) + " kilos" 
-    imgPokemon.src = element.sprites.front_default
+    tipoPokemon.innerHTML = "Types: " + types
+    alturaPokemon.innerHTML = "Height: " + (element.height/10) + "m" 
+    pesoPokemon.innerHTML = "Weight: " + (element.weight/10) + "kg" 
+    imgPokemon.src = element.sprites.versions['generation-v']['black-white'].animated.front_default
 }
 
 function clearPage(){
@@ -486,9 +160,8 @@ function previousPage(){
 
 function goBack(){
     updateResults()
-    backButton.style = "display:none"
-    results.style = "display:inline"
-    banner.style = "display:inline"
+    results.style = "display:block"
+    banner.style = "display:block"
     fichaPokemon.style = "display:none"
 }
 
@@ -497,18 +170,11 @@ function updateResults(){
     if (searchField.value != ""){
         filteredResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE).forEach(element => {
             displayElement(element)
-        });
+        })
     }
     else {
         queryResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE).forEach(element => {
             displayElement(element)
-        });
+        })
     }
-    
-}
-
-function closeCard(){
-    results.style.display = "block";
-    banner.style.display = "block";
-    pokemon.style.display = "none";
 }
