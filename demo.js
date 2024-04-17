@@ -123,7 +123,7 @@ function showElement(element){
     tipoPokemon.innerHTML = "Types: " + types
     alturaPokemon.innerHTML = "Height: " + (element.height/10) + "m" 
     pesoPokemon.innerHTML = "Weight: " + (element.weight/10) + "kg"
-    if (element.id <= 721){
+    if (element.id <= 649){
         imgPokemon.src = element.sprites.versions['generation-v']['black-white'].animated.front_default
     } else {
         imgPokemon.src = element.sprites.front_default

@@ -1262,3 +1262,15 @@ a, a:hover {
     height: 10px;
     width: 10px;
 }
+
+#imgPokemon{
+    width: 160px;
+    height: 110px;
+    margin: 10%;
+}
+
+svg{
+    width: 20px;
+    height: 20px;
+    margin-bottom: 3px;
+}
