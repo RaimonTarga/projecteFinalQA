@@ -90,7 +90,7 @@ body {
     transform-style: preserve-3d;
     }
     
-    .content-box-pshychic {
+    .content-box-psychic {
     background: rgba(250, 4, 250, 0.732);
     /* border-radius: 10px 100px 10px 10px; */
     transition: all 0.5s ease-in-out;
@@ -106,7 +106,7 @@ body {
     transition: all 0.5s ease-in-out;
     transform: translate3d(0px, 0px, 50px);
     }
-    .content-box-pshychic .card-title {
+    .content-box-psychic .card-title {
     display: inline-block;
     color: white;
     font-size: 25px;
