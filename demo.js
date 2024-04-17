@@ -70,10 +70,7 @@ function queryPage(pageNumber){
                     if (pageNumber<MAX_PAGES){
                         queryPage(pageNumber+1)
                     }
-                    
                 })
-                
-            
             })
             .catch(error => {
                 console.error(error)
@@ -82,7 +79,6 @@ function queryPage(pageNumber){
         console.error(error)
     }
 }
-
 
 function displayElement(element){
     const node = document.createElement("div")
@@ -126,8 +122,13 @@ function showElement(element){
     }
     tipoPokemon.innerHTML = "Types: " + types
     alturaPokemon.innerHTML = "Height: " + (element.height/10) + "m" 
-    pesoPokemon.innerHTML = "Weight: " + (element.weight/10) + "kg" 
-    imgPokemon.src = element.sprites.versions['generation-v']['black-white'].animated.front_default
+    pesoPokemon.innerHTML = "Weight: " + (element.weight/10) + "kg"
+    if (element.id <= 721){
+        imgPokemon.src = element.sprites.versions['generation-v']['black-white'].animated.front_default
+    } else {
+        imgPokemon.src = element.sprites.front_default
+    }
+    
 }
 
 function clearPage(){
