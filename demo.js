@@ -443,7 +443,7 @@ function showElement(element){
     results.style = "display:none"
     banner.style = "display:none"
     fichaPokemon.style = "display:inline"
-    nombrePokemon.innerHTML = element.name
+    nombrePokemon.innerHTML = element.name + '<button type="button" id="btnClose" class="btn-close float-right" aria-label="Close" onclick="closeCard()"></button>'
     if (element.types[1] != undefined){
         tipoPokemon.innerHTML = "Tipos: " + element.types[0].type.name + " " + element.types[1].type.name
     }
