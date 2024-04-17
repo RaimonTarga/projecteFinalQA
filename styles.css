@@ -1,33 +1,67 @@
-header {
-    display: flex;
-    border: 1px solid black;
-    border-radius: 5px;
-    justify-content: space-between;
-    padding: 1%;
+body {
+    background-image: url('./png/fondoHome.jpg');
+    background-repeat:no-repeat;
+    background-size:100%;
+    background-attachment: fixed;
+  }
+
+/* HEADER */
+.navbar {
+    background-color: rgba(0, 0, 255, 0.3);
+    position: fixed;
+    width: 100%;
 }
 
-#title {
+.container span {
     display: flex;
+    color: white;
 }
 
 .pokedex {
     height: 50px;
+    padding: 0px 10px;
 }
 
 #menu {
     text-decoration: none;
-    display: flex;
     list-style-type: none;
+    width: 100%;
+    display: flex;
 }
 
 #menu a {
+    color: white;
+    list-style: none;
+    display: flex;
+    padding: 10px;
 }
 
-main {
-    border: 1px solid black;
-    border-radius: 5px;
-    
+/* ABOUT US */
+.title {
+    color: white;
+    padding: 100px 25px 0px 40px;
 }
+
+.article {
+    border-radius: 5px;
+    border: 2px solid white;
+    padding: 5px;
+    margin: 20px 400px 20px 20px;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.8),
+        rgba(255,255,255,0.3)
+        );
+    color: brown;
+}
+
+.article img {
+    width: 40%;
+    display: block;
+    margin-left: auto;
+}
+
+/* CARDS */
 .card {
     padding-top: 50px;
     /* border-radius: 10px; */
@@ -1010,4 +1044,16 @@ main {
     .date-box-fairy span {
     display: block;
     text-align: center;
+    }
+    .jumbotron {
+        background: none;
+        padding-bottom: 0;
+    }
+    #banner{
+        height: 200px;
+        width: 40%;
+        background-image: url(https://i.pinimg.com/originals/2b/1d/fe/2b1dfec19b945a19ac39641278a6a799.jpg) ;
+        background-size:contain;
+        background-repeat: no-repeat ;
+        margin-left: 30%;
     }
