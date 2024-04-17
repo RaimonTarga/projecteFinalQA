@@ -1,18 +1,24 @@
 const API_URL = "https://pokeapi.co/api/v2/pokemon"
-const previousButton = document.getElementById("previousButton");
-const nextButton = document.getElementById("nextButton");
-const searchField = document.getElementById('pokemonInput');
-const backButton = document.getElementById("backButton");
-const results = document.getElementById("results");
+const results = document.getElementById("results")
+const previousButton = document.getElementById("previousButton")
+const nextButton = document.getElementById("nextButton")
+const searchField = document.getElementById('pokemonInput')
+const backButton = document.getElementById("backButton")
+const fichaPokemon = document.getElementById("fichaPokemon")
+const nombrePokemon = document.getElementById("nombrePokemon")
+const tipoPokemon = document.getElementById("numeroPokemon")
+const alturaPokemon = document.getElementById("alturaPokemon")
+const pesoPokemon = document.getElementById("pesoPokemon")
+const imgPokemon = document.getElementById("imgPokemon")
+const banner = document.getElementById("banner")
+
 const PAGE_SIZE = 25
-const MAX_PAGE = 52
+const MAX_PAGES = 52
 let currentPage = 0
 let queryResults = []
 let filteredResults = []
 
 queryPage(0)
-
-previousButton.style = "display:none"
 
 searchField.addEventListener('input', (evt) => {
     clearPage()
@@ -25,7 +31,7 @@ searchField.addEventListener('input', (evt) => {
 function filterElements(){
     filteredResults = []
     queryResults.forEach(element => {
-        if (element.name.toLowerCase().includes(searchField.value.toLowerCase())){
+        if (element.name.includes(searchField.value.toLowerCase())){
             filteredResults.push(element)
         }
     });
@@ -66,7 +72,7 @@ function queryPage(pageNumber){
                 resultPromise.then(()=>{
                     queryResults.sort((a, b) => a.id - b.id)
                     if (pageNumber==0) updateResults()
-                    if (pageNumber<MAX_PAGE){
+                    if (pageNumber<MAX_PAGES){
                         queryPage(pageNumber+1)
                     }
                     
@@ -75,8 +81,6 @@ function queryPage(pageNumber){
             
             })
             .catch(error => {
-                //nextButton.style = "display:none";
-                //currentPage--;
                 console.error(error)
             })
     } catch (error) {
@@ -84,9 +88,6 @@ function queryPage(pageNumber){
     }
 }
 
-function compareID(a, b){
-    return (a.id < b.id)
-}
 
 function displayElement(element){
     const node = document.createElement("div")
@@ -438,15 +439,21 @@ function displayElement(element){
     results.appendChild(node)
 }
 
-function print(){
-    
-}
-
 function showElement(element){
-    clearPage()
-    let node = document.createElement("div")
+    results.style = "display:none"
+    banner.style = "display:none"
+    fichaPokemon.style = "display:inline"
+    nombrePokemon.innerHTML = element.name
+    if (element.types[1] != undefined){
+        tipoPokemon.innerHTML = "Tipos: " + element.types[0].type.name + " " + element.types[1].type.name
+    }
+    else {
+        tipoPokemon.innerHTML = "Tipo: " + element.types[0].type.name
+    }
     
-    backButton.style = "display:inline"
+    alturaPokemon.innerHTML = "Altura: " + (element.height/10) + " metros" 
+    pesoPokemon.innerHTML = "Peso: " + (element.weight/10) + " kilos" 
+    imgPokemon.src = element.sprites.front_default
 }
 
 function clearPage(){
@@ -454,11 +461,16 @@ function clearPage(){
 }
 
 function nextPage(){
-    clearPage()
-    currentPage++
-    updateResults()
-    if (currentPage != 0){
-        previousButton.style = "display:inline"
+    if (currentPage*PAGE_SIZE+PAGE_SIZE <= queryResults.length){
+        clearPage()
+        currentPage++
+        updateResults()
+        if (currentPage != 0){
+            previousButton.style = "display:inline"
+        }
+        if (currentPage == MAX_PAGES){
+            nextButton.style = "display:none"
+        }
     }
 }
 
@@ -473,9 +485,11 @@ function previousPage(){
 }
 
 function goBack(){
-    clearPage()
     updateResults()
     backButton.style = "display:none"
+    results.style = "display:inline"
+    banner.style = "display:inline"
+    fichaPokemon.style = "display:none"
 }
 
 function updateResults(){
@@ -484,13 +498,6 @@ function updateResults(){
         filteredResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE).forEach(element => {
             displayElement(element)
         });
-    }
-    else if (queryResults.length <= currentPage * PAGE_SIZE){
-        
-        queryResults.forEach(element => {
-            displayElement(element)
-        });
-        
     }
     else {
         queryResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE).forEach(element => {

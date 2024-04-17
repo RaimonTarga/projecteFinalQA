@@ -30,9 +30,9 @@
     </nav>
   </header>
   <section class="jumbotron text-center sticky-top">
-    <div id="banner" class="text-center" style="display:none">
+    <div id="banner" class="text-center">
       <div class="text-center">
-        <a href="#" class="btn btn-danger my-2 " id="previousButton" onclick="previousPage()">Previous</a>
+        <a href="#" class="btn btn-danger my-2 " id="previousButton" onclick="previousPage()" style="display:none">Previous</a>
         <a href="#" class="btn btn-danger my-2 " id="nextButton" onclick="nextPage()">Next</a>
       </div>
       <div class="text-center">
@@ -40,8 +40,8 @@
       </div>
     </div>
   </section>
-  <div id="results" style="display:none" ></div>
-  <div id="pokemon">
+  <div id="results"></div>
+  <div id="fichaPokemon" style="display:none">
     <section>
       <div class="container py-4">
         <article class="postcard dark blue">
@@ -49,11 +49,11 @@
             <img id="imgPokemon" class="postcard__img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSL7NHHww3dRe1pNuWQpFEO_5i4hqrFZILs7rXXvkkbQ&s" alt="Image Title" />	
           </a>
           <div class="postcard__text">
-            <h1 id="nombrePokemon" class="postcard__title red">Rayquaza</h1>
-            <div id="tipoPokemon" id="type" class="postcard__preview-txt">Tipo:</div>
-            <div id="numeroPokemon" class="postcard__preview-txt">Numero:</div>
-            <div id="alturaPokemon" class="postcard__preview-txt">Altura:</div>
-            <div id="pesoPokemon" class="postcard__preview-txt">Peso:</div>
+            <h1 id="nombrePokemon" class="postcard__title red"></h1>
+            <div id="tipoPokemon" class="postcard__preview-txt"></div>
+            <div id="numeroPokemon" class="postcard__preview-txt"></div>
+            <div id="alturaPokemon" class="postcard__preview-txt"></div>
+            <div id="pesoPokemon" class="postcard__preview-txt"></div>
           </div>
         </article>
       </div>
