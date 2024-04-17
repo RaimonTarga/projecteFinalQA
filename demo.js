@@ -106,7 +106,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-water">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -126,7 +126,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-fire">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -146,7 +146,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-grass">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -166,7 +166,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-ice">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -206,7 +206,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-bug">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -226,7 +226,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-fighting">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -246,7 +246,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-electric">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -266,7 +266,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-rock">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -286,7 +286,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-steel">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -306,7 +306,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-dark">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -326,7 +326,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-flying">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -346,7 +346,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-normal">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -366,7 +366,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-ghost">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -386,7 +386,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-ground">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -406,7 +406,7 @@ function displayElement(element){
                     </p>
                 </div>
                 <div class="date-box-dragon">
-                    <img src="${element.sprites.front_default}" alt="foto">
+                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
                 </div>
             </div>
             </div>
@@ -426,7 +426,7 @@ function displayElement(element){
                 </p>
             </div>
             <div class="date-box-fairy">
-                <img src="${element.sprites.front_default}" alt="foto">
+                <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
             </div>
         </div>
         </div>
@@ -505,4 +505,10 @@ function updateResults(){
         });
     }
     
+}
+
+function closeCard(){
+    results.style.display = "block";
+    banner.style.display = "block";
+    pokemon.style.display = "none";
 }
