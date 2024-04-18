@@ -147,7 +147,7 @@ function nextPage(){
         currentPage++
         updateResults()
         if (currentPage != 0){
-            previousButton.style = "display:inline"
+            previousButton.style = "display:block"
         }
         if (currentPage == MAX_PAGES){
             nextButton.style = "display:none"
@@ -162,7 +162,7 @@ function previousPage(){
     if (currentPage == 0){
         previousButton.style = "display:none"
     }
-    nextButton.style = "display:inline"
+    nextButton.style = "display:block"
 }
 
 function goBack(){
