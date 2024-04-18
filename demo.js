@@ -10,10 +10,12 @@ const tipoPokemon = document.getElementById("numeroPokemon")
 const alturaPokemon = document.getElementById("alturaPokemon")
 const pesoPokemon = document.getElementById("pesoPokemon")
 const imgPokemon = document.getElementById("imgPokemon")
+const cryPokemon = document.getElementById("cryPokemon")
 const banner = document.getElementById("banner")
 
 const PAGE_SIZE = 25
 const MAX_PAGES = 52
+const MAX_ANIMATED_SPRITES = 649
 let currentPage = 0
 let queryResults = []
 let filteredResults = []
@@ -23,7 +25,7 @@ queryPage(0)
 searchField.addEventListener('input', (evt) => {
     clearPage()
     currentPage = 0
-    previousButton.style = "display:none"
+    previousButton.disabled = true
     filterElements()
     updateResults()
 })
@@ -124,12 +126,16 @@ function showElement(element){
     tipoPokemon.innerHTML = "Types: " + types
     alturaPokemon.innerHTML = "Height: " + (element.height/10) + "m" 
     pesoPokemon.innerHTML = "Weight: " + (element.weight/10) + "kg"
-    if (element.id <= 649){
+    if (element.id <= MAX_ANIMATED_SPRITES){
         imgPokemon.src = element.sprites.versions['generation-v']['black-white'].animated.front_default
     } else {
         imgPokemon.src = element.sprites.front_default
     }
     
+    cryPokemon.onclick = function(){
+        let cry = new Audio(element.cries.latest)
+        cry.play()
+    }
 }
 
 function clearPage(){
@@ -142,10 +148,10 @@ function nextPage(){
         currentPage++
         updateResults()
         if (currentPage != 0){
-            previousButton.style = "display:inline"
+            previousButton.disabled = false
         }
         if (currentPage == MAX_PAGES){
-            nextButton.style = "display:none"
+            nextButton.disabled = true
         }
     }
 }
@@ -155,9 +161,9 @@ function previousPage(){
     currentPage--
     updateResults()
     if (currentPage == 0){
-        previousButton.style = "display:none"
+        previousButton.disabled = true
     }
-    nextButton.style = "display:inline"
+    nextButton.disabled = false
 }
 
 function goBack(){
