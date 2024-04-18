@@ -90,28 +90,29 @@ function displayElement(element){
          types += ", " + element.types[1].type.name
     }
     node.innerHTML += 
-        `
-        <div class="parent">
-            <div class="card">
-                <div class="content-box-${element.types[0].type.name}">
-                    <span class="card-title">${element.name}</span>
-                    <p class="card-content">
-                        Id: ${element.id}
-                    </p>
-                    <p class="card-content">
-                        Types: ${types}
-                    </p>
-                </div>
-                <div class="date-box-${element.types[0].type.name}">
-                    <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
-                </div>
+    `
+    <div class="parent text-center">
+        <div class="card text-center">
+            <div class="content-box-${element.types[0].type.name}">
+                <span class="card-title">${element.name}</span>
+                <p class="card-content">
+                    Id: ${element.id}
+                </p>
+                <p class="card-content">
+                    Types: ${types}
+                </p>
+            </div>
+            <div class="date-box-${element.types[0].type.name}">
+                <img class="imatgePokemonPokedex" src="${element.sprites.front_default}" alt="foto">
             </div>
         </div>
-        `
+    </div>
+    `
     node.onclick = function(){
-        showElement(element)
+    showElement(element)
     };
     results.appendChild(node)
+    
 }
 
 function showElement(element){
