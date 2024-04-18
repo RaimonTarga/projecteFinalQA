@@ -1274,11 +1274,14 @@ a, a:hover {
 }
 
 #imgPokemon{
-    width: 160px;
-    height: 110px;
+    width: 190px;
+    height: 170px;
     margin: 10%;
 }
 
+#logo{
+  margin-left: 10%;
+}
 svg{
     width: 20px;
     height: 20px;
