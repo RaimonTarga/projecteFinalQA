@@ -25,7 +25,7 @@ queryPage(0)
 searchField.addEventListener('input', (evt) => {
     clearPage()
     currentPage = 0
-    previousButton.style = "display:none"
+    previousButton.disabled = true
     filterElements()
     updateResults()
 })
@@ -147,10 +147,10 @@ function nextPage(){
         currentPage++
         updateResults()
         if (currentPage != 0){
-            previousButton.style = "display:block"
+            previousButton.disabled = false
         }
         if (currentPage == MAX_PAGES){
-            nextButton.style = "display:none"
+            nextButton.disabled = true
         }
     }
 }
@@ -160,9 +160,9 @@ function previousPage(){
     currentPage--
     updateResults()
     if (currentPage == 0){
-        previousButton.style = "display:none"
+        previousButton.disabled = true
     }
-    nextButton.style = "display:block"
+    nextButton.disabled = false
 }
 
 function goBack(){
