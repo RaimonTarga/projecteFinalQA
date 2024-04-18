@@ -28,6 +28,7 @@ searchField.addEventListener('input', (evt) => {
     previousButton.disabled = true
     filterElements()
     updateResults()
+    
 })
 
 function filterElements(){
@@ -175,14 +176,18 @@ function goBack(){
 
 function updateResults(){
     clearPage()
+    nextButton.disabled = false
+    let resultPage = []
     if (searchField.value != ""){
-        filteredResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE).forEach(element => {
-            displayElement(element)
-        })
+        resultPage = filteredResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE)
     }
     else {
-        queryResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE).forEach(element => {
-            displayElement(element)
-        })
+        resultPage = queryResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE)
+    }
+    resultPage.forEach(element => {
+        displayElement(element)
+    })
+    if (resultPage.length < PAGE_SIZE){
+        nextButton.disabled = true
     }
 }
