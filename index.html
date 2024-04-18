@@ -8,29 +8,24 @@
     <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-      <a class="navbar-brand" href="#">
-        <img src="https://miro.medium.com/v2/resize:fit:600/0*NsHVyfpJ2k7ixTAd" width="30" height="30" class="d-inline-block align-top" alt="">
-        PokedexApi
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Pokedex <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About Us</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <section class="jumbotron text-center sticky-top">
-    <div id="banner" class="text-center">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top z-3">
+    <a class="navbar-brand" href="#">
+      <img src="https://miro.medium.com/v2/resize:fit:600/0*NsHVyfpJ2k7ixTAd" width="30" height="30" class="d-inline-block align-top" alt="">
+      PokedexApi
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Pokedex <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/aboutUs.html">About Us</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <section class="jumbotron text-end sticky-top z-2">
+    <div id="banner" class="text-end">
       <div class="text-center">
         <a href="#" class="btn btn-danger my-2 " id="previousButton" onclick="previousPage()" style="display:none">Previous</a>
         <a href="#" class="btn btn-danger my-2 " id="nextButton" onclick="nextPage()">Next</a>
@@ -40,7 +35,7 @@
       </div>
     </div>
   </section>
-  <div id="results"></div>
+  <div id="results" class="text-center"></div>
   <div id="fichaPokemon" style="display:none">
     <section>
       <div class="container py-4">
