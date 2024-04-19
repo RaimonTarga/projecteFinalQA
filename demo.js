@@ -14,7 +14,7 @@ const cryPokemon = document.getElementById("cryPokemon")
 const pageDropdown = document.getElementById("pageDropdown")
 const ProgressBackGround = document.getElementById("ProgressBackGround")
 const ProgressBar = document.getElementById("ProgressBar")
-
+const ProgressBarText = document.getElementById("ProgressBarText")
 const banner = document.getElementById("banner")
 
 const PAGE_SIZE = 25
@@ -52,17 +52,19 @@ function filterElements(){
 
 function updateProgressBar(pagesLoaded){
     let value = pagesLoaded/(MAX_PAGES-1)
-    var width = value * 100;
+    var width = value * 100
     if (width >= 100) {
-        ProgressBar.style.width = "100%";
-        ProgressBar.innerHTML = "100%";
-        let timer = setTimeout( function(){
-            ProgressBackGround.style = "display:none"
-            ProgressBar.style = "display:none"
-        }, 5000)
+        ProgressBar.style.width = "100%"
+        ProgressBarText.innerHTML = "100%"
+        setTimeout( function(){
+            ProgressBackGround.animate([{opacity:1},{opacity:0}],1000)
+            setTimeout(() => {
+                ProgressBackGround.style = "display:none"
+            }, 1000)
+        }, 1000)
     } else {
-        ProgressBar.style.width = width + "%";
-        ProgressBar.innerHTML = Math.floor(width) + "%";
+        ProgressBar.style.width = width + "%"
+        ProgressBarText.innerHTML = Math.floor(width) + "%"
     }
 }
 
@@ -161,6 +163,7 @@ function showElement(element){
         imgPokemon.src = element.sprites.versions['generation-v']['black-white'].animated.front_default
     } else {
         imgPokemon.src = element.sprites.front_default
+        imgPokemon.classList.remove('imatgePokemonPokedex')
     }
     
     cryPokemon.onclick = function(){
@@ -227,14 +230,14 @@ function updateResults(changeDropdown = true){
     if (searchField.value != ""){
         resultPage = filteredResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE)
         if (changeDropdown){
-            updateDropdown(Math.ceil(filteredResults.length/25))
+            updateDropdown(Math.ceil(filteredResults.length/PAGE_SIZE))
         }
         
     }
     else {
         resultPage = queryResults.slice(currentPage*PAGE_SIZE, currentPage*PAGE_SIZE + PAGE_SIZE)
         if (changeDropdown){
-            updateDropdown(Math.ceil(queryResults.length/25))
+            updateDropdown(Math.ceil(queryResults.length/PAGE_SIZE))
         }
     }
     resultPage.forEach(element => {
