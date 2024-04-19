@@ -27,6 +27,23 @@ body {
     padding: 0px 10px;
 }
 
+#ProgressBackGround {
+  margin-left: 40%;
+  width: 20%;
+  background-color: black;
+  border-radius: 5px;
+}
+
+#ProgressBar {
+  width: 10%;
+  height: 30px;
+  background-color: #04AA6D;
+  text-align: center;
+  line-height: 30px; 
+  color: white;
+  border-radius: 5px;
+}
+
 #menu {
     text-decoration: none;
     list-style-type: none;
