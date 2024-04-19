@@ -26,7 +26,6 @@ let filteredResults = []
 
 queryPage(0)
 
-
 searchField.addEventListener('input', (evt) => {
     currentPage = 0
     previousButton.disabled = true
@@ -39,7 +38,6 @@ pageDropdown.addEventListener("change", (event)=> {
     previousButton.disabled = (currentPage == 0)
     updateResults(false)
 });
-
 
 function filterElements(){
     filteredResults = []
@@ -55,7 +53,7 @@ function updateProgressBar(pagesLoaded){
     var width = value * 100
     if (width >= 100) {
         ProgressBar.style.width = "100%"
-        ProgressBarText.innerHTML = "100%"
+        ProgressBarText.innerHTML = "Loaded: 100%"
         setTimeout( function(){
             ProgressBackGround.animate([{opacity:1},{opacity:0}],1000)
             setTimeout(() => {
@@ -64,7 +62,7 @@ function updateProgressBar(pagesLoaded){
         }, 1000)
     } else {
         ProgressBar.style.width = width + "%"
-        ProgressBarText.innerHTML = Math.floor(width) + "%"
+        ProgressBarText.innerHTML = "Loading: " + Math.floor(width) + "%"
     }
 }
 
